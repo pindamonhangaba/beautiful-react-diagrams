@@ -31,6 +31,7 @@ export type Link = {
   label?: ReactNode;
   readonly?: boolean;
   className?: string;
+  path?: string;
 };
 
 export type DiagramSchema<P> = {

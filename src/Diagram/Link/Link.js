@@ -24,6 +24,7 @@ const useContextRefs = () => {
  */
 const Link = (props) => {
   const { input, output, link, onDelete } = props;
+  const { path } = link;
   const pathRef = useRef();
   const [labelPosition, setLabelPosition] = useState();
   const { canvas, portRefs, nodeRefs } = useContextRefs();
@@ -37,7 +38,8 @@ const Link = (props) => {
     inputAlignment: input.entity.alignment || null,
     outputAlignment: output.entity.alignment || null,
   };
-  const path = useMemo(() => makeSvgPath(inputPoint, outputPoint, pathOptions), [inputPoint, outputPoint]);
+  const calcPath = useMemo(() => path ?? makeSvgPath(inputPoint, outputPoint, pathOptions),
+    [path, inputPoint, outputPoint]);
 
   // calculates label position
   useEffect(() => {
@@ -57,7 +59,7 @@ const Link = (props) => {
   return (
     <g className={classList}>
       {!link.readonly && (<path d={path} className="bi-link-ghost" onDoubleClick={onDoubleClick} />)}
-      <path d={path} ref={pathRef} className="bi-link-path" onDoubleClick={onDoubleClick} />
+      <path d={calcPath} ref={pathRef} className="bi-link-path" onDoubleClick={onDoubleClick} />
       {link.label && labelPosition && (<LinkLabel position={labelPosition} label={link.label} />)}
     </g>
   );

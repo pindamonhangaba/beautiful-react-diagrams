@@ -9,6 +9,7 @@ export const LinkType = PropTypes.shape({
   label: PropTypes.node,
   readonly: PropTypes.bool,
   className: PropTypes.string,
+  path: PropTypes.string,
 });
 
 export const PortAlignment = PropTypes.oneOf(['right', 'left', 'top', 'bottom']);
